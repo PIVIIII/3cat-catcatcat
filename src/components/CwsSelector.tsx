@@ -41,16 +41,17 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
     const handleClick = () => {
         if (!session) return
 
-        if (cwSpace && startTime && endTime && totalcost) {
-            const reservationItem: ReservationItem = {
-                userName: session.user.name,
-                cwsID: cwSpace,
-                startTime: startTime.toISOString(),
-                endTime: endTime.toISOString(),
-                totalcost: totalcost
-            }
+        if (cwSpace && startTime && endTime) {
+            if (totalcost) {
+                const reservationItem: ReservationItem = {
+                    userName: session.user.name,
+                    cwsID: cwSpace,
+                    startTime: startTime.toISOString(),
+                    endTime: endTime.toISOString(),
+                    totalcost: totalcost
+                }
 
-            addReservation(reservationItem, session.user.token)
+                addReservation(reservationItem, session.user.token)
                 .then(() => {
                     setReserveStatus('Reserved successfully')
                     router.push('/payment')
@@ -59,6 +60,7 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
                 .catch(err => {
                     setReserveStatus(err.message)
                 })
+            }
         } else {
             setReserveStatus('Please enter reserve informations')
         }
