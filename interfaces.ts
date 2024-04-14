@@ -9,7 +9,16 @@ interface Reservation {
     reserveEndTime: string,
     user: string,
     coworkingspace: CoworkingspacesItem,
-    totalcost : string
+    totalcost : string,
+    status: string
+}
+
+interface Transaction {
+    _id: string,
+    reservation: string,
+    user: string,
+    totalcost: string,
+    slip: string
 }
 
 interface ReservationItem {

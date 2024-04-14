@@ -3,11 +3,10 @@
 import { Select, MenuItem } from "@mui/material";
 import LocationDateReserve from "@/components/LocationDateReserve"
 import { Dayjs } from "dayjs"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import addReservation from "@/libs/addReservation"
 import { useSession } from "next-auth/react";
-import Reservation from "@/app/reservation/page";
 
 export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
 
@@ -19,8 +18,23 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
     const [cwSpace, setCwSpace] = useState<string|null>(id)
     const [startTime, setStartTime] = useState<Dayjs|null>(null)
     const [endTime, setEndTime] = useState<Dayjs|null>(null)
+    const [totalcost, setTotalCost] = useState<string|null>(null)
     const [reserveStatus, setReserveStatus] = useState<string|null>(null)
-    const [totalcost, setCostStatus] = useState<string|null>(null)
+
+    useEffect(() => {
+        if (cwSpace && endTime && startTime) {
+            const coworkingspace = cws.data.find(item => item._id === cwSpace)
+            const totalMinutes = endTime.diff(startTime, 'minute')
+            if (totalMinutes <= 0) {
+                setTotalCost(null)
+                return
+            }
+            const roundedHours = Math.ceil(totalMinutes / 60)
+            if (coworkingspace) {
+                setTotalCost((roundedHours * parseInt(coworkingspace.rate, 10)).toString())
+            }
+        }
+    }, [cwSpace, startTime, endTime])
 
     const {data: session} = useSession()
 
@@ -33,7 +47,7 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
                 cwsID: cwSpace,
                 startTime: startTime.toISOString(),
                 endTime: endTime.toISOString(),
-                totalcost: totalcost.toString()
+                totalcost: totalcost
             }
 
             addReservation(reservationItem, session.user.token)
@@ -45,7 +59,6 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
                 .catch(err => {
                     setReserveStatus(err.message)
                 })
-
         } else {
             setReserveStatus('Please enter reserve informations')
         }
@@ -104,7 +117,9 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
                         <th>
                             <div id="Cost" className="bg-white w-[100%] rounded-md border border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent box-border w-full p-4">
                                 <div>
-                                    123
+                                    {
+                                        totalcost? <div>{totalcost} Baht</div> : <div>-</div>
+                                    }
                                 </div>
                             </div>
                         </th>

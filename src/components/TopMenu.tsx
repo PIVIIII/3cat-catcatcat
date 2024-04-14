@@ -55,8 +55,9 @@ export default function TopMenu() {
             }
             <div className='hidden md:flex flex-row absolute right-0 h-full'>
 
-                <TopMenuItem title='Request' pageRef='/request'/>
-                
+                {
+                    session?.user.role==='admin'? <TopMenuItem title='Request' pageRef='/request'/> : null
+                }
                 <TopMenuItem title='Co-working Spaces' pageRef='/coworkingspace'/>
                 <TopMenuItem title='Make Reservation' pageRef='/reservation'/>
                 {
