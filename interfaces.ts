@@ -8,14 +8,16 @@ interface Reservation {
     reserveStartTime: string,
     reserveEndTime: string,
     user: string,
-    coworkingspace: CoworkingspacesItem
+    coworkingspace: CoworkingspacesItem,
+    totalcost : string
 }
 
 interface ReservationItem {
     userName : string
     cwsID : string
     startTime : string
-    endTime : string
+    endTime : string,
+    totalcost : string
 }
 
 interface Coworkingspaces {
@@ -33,6 +35,7 @@ interface CoworkingspacesItem {
     opentime: string,
     closetime: string,
     image: string
+    rate : string
 }
 
 interface User {

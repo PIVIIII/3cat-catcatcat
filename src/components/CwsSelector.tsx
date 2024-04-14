@@ -7,6 +7,7 @@ import { useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import addReservation from "@/libs/addReservation"
 import { useSession } from "next-auth/react";
+import Reservation from "@/app/reservation/page";
 
 export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
 
@@ -19,18 +20,20 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
     const [startTime, setStartTime] = useState<Dayjs|null>(null)
     const [endTime, setEndTime] = useState<Dayjs|null>(null)
     const [reserveStatus, setReserveStatus] = useState<string|null>(null)
+    const [totalcost, setCostStatus] = useState<string|null>(null)
 
     const {data: session} = useSession()
 
     const handleClick = () => {
         if (!session) return
 
-        if (cwSpace && startTime && endTime) {
+        if (cwSpace && startTime && endTime && totalcost) {
             const reservationItem: ReservationItem = {
                 userName: session.user.name,
                 cwsID: cwSpace,
                 startTime: startTime.toISOString(),
-                endTime: endTime.toISOString()
+                endTime: endTime.toISOString(),
+                totalcost: totalcost.toString()
             }
 
             addReservation(reservationItem, session.user.token)
@@ -90,6 +93,20 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
                         </th>
                         <th>
                             <LocationDateReserve onDateChange={(value: Dayjs) => { setEndTime(value.add(7, 'hour')) }} />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <div className="text-sm font-semibold sm:text-base sm:font-bold">
+                                Cost
+                            </div>
+                        </th>
+                        <th>
+                            <div id="Cost" className="bg-white w-[100%] rounded-md border border-blue-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-transparent box-border w-full p-4">
+                                <div>
+                                    123
+                                </div>
+                            </div>
                         </th>
                     </tr>
                 </tbody>
