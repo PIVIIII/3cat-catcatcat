@@ -30,6 +30,13 @@ export default function MyReservation({reservations, user} : {reservations: Rese
                                 className="text-sm text-white bg-cyan-450 py-2 rounded-lg w-[180px] hover:bg-cyan-700">Update Reservation</Link>
                             <button className="text-sm text-white bg-rose-red py-2 rounded-lg w-[180px] hover:bg-rose-700"
                                 onClick={() => deleteReservation(item._id, user.token).then(() => {router.refresh()})}>Remove Reservation</button>
+                            
+                            {
+                                user.role==='admin'? 
+                                <Link href='/myreservation/view'>
+                                    <button className="text-sm text-white bg-[#2DD397] py-2 rounded-lg w-[180px] hover:bg-[#0E9C69]">View</button>
+                                </Link>: null
+                            }
                         </div>
                     </div>
                 ))

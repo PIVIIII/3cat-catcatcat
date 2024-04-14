@@ -5,7 +5,7 @@ export default function View(){
             <div className="text-xl text-black">User ID: </div>
 
             <div className="flex flex-col items-center">
-                <div className="block bg-white border border-4 border-[#85C2EE] shadow-xl mx-5 my-10 w-[40vw] h-[50vh] rounded-lg">
+                <div className="block bg-white border border-2 border-[#85C2EE] shadow-xl mx-5 my-10 w-[40vw] h-[50vh] rounded-lg">
                     <div>ดึงการ์ดมา ทำไง???</div>
                     <div>Slip: </div>
                 </div>
