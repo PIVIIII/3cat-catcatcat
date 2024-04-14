@@ -39,7 +39,7 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
             addReservation(reservationItem, session.user.token)
                 .then(() => {
                     setReserveStatus('Reserved successfully')
-                    router.push('/myreservation')
+                    router.push('/payment')
                     router.refresh()
                 })
                 .catch(err => {
