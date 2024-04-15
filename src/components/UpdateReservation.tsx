@@ -6,6 +6,8 @@ import { useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useSession } from "next-auth/react";
 import updateReservation from "@/libs/updateReservation";
+import { useEffect } from "react"
+import React from "react"
 
 export default function UpdateReservation() { 
 
@@ -21,28 +23,48 @@ export default function UpdateReservation() {
     const [reserveStartTime, setStartTime] = useState<Dayjs>(dayjs(startTime))
     const [reserveEndTime, setEndTime] = useState<Dayjs>(dayjs(endTime))
     const [reserveStatus, setReserveStatus] = useState<string|null>(null)
-
     const {data: session} = useSession()
 
+    const start = dayjs(startTime);
+    const end = dayjs(endTime);
+    const [isEqual, setEqual] = useState<boolean>(false);
+    const [hour, setHour] = useState<number|null>(null);
+
+    useEffect(() => { 
+        if(reserveStartTime && reserveEndTime && start && end){
+            const totalHour1 = Math.ceil(end.diff(start, 'hour'));
+            const totalHour2 = Math.ceil(reserveEndTime.diff(reserveStartTime, 'hour'))
+            setHour(totalHour1)
+
+            if(totalHour1 === totalHour2){
+                setEqual(true)
+            } else {
+                setEqual(false)
+            }
+        }
+    }, [reserveStartTime, reserveEndTime, start, end])
+    
     const handleClick = () => {
         if (!session) return
 
         if (startTime && endTime) {
-            const reservationItem: any = {
-                id: id,
-                startTime: reserveStartTime.toISOString(),
-                endTime: reserveEndTime.toISOString()
-            }
+            if(isEqual){
+                const reservationItem: any = {
+                    id: id,
+                    startTime: reserveStartTime.toISOString(),
+                    endTime: reserveEndTime.toISOString()
+                }
 
-            updateReservation(reservationItem, session.user.token)
-                .then(() => {
-                    setReserveStatus('Updated successfully')
-                    router.push('/myreservation')
-                    router.refresh()
-                })
-                .catch(err => {
-                    setReserveStatus(err.message)
-                })
+                updateReservation(reservationItem, session.user.token)
+                    .then(() => {
+                        setReserveStatus('Updated successfully')
+                        router.push('/myreservation')
+                        router.refresh()
+                    })
+                    .catch(err => {
+                        setReserveStatus(err.message)
+                    })  
+            }
 
         } else {
             setReserveStatus('Please enter update reserve informations')
@@ -81,6 +103,10 @@ export default function UpdateReservation() {
             <button className="block rounded-full bg-teal-500 hover:bg-teal-700 px-6 py-3 text-white shadow-sm font-bold uppercase tracking-wide" onClick={handleClick}>
                 Update
             </button>
+
+            {
+                isEqual? null : <div className="text-center"> You can reserve only {hour} hour </div>
+            }
 
             {
                 reserveStatus? <div className="text-center"> {reserveStatus} </div> : null
