@@ -9,12 +9,19 @@ export default function MyReservation({reservations, user} : {reservations: Rese
 
     const router = useRouter()
 
+    const sortedReservations = [...reservations.data].sort((a: Reservation, b: Reservation) => {
+        if (a.status === 'pending') return -1;
+        if (a.status === 'failed' && b.status !== 'pending') return -1;
+        if (a.status === 'success' && b.status !== 'pending' && b.status !== 'failed') return -1;
+        return 1;
+    });
+
     return (
         <div>
             {
-                reservations.data.length !== 0?
-                reservations.data.map((item: Reservation) => (
-                    <div className="bg-white border rounded border-sky-900 shadow-lg px-5 mx-5 py-2 my-5 w-[80%]">
+                sortedReservations.length !== 0?
+                sortedReservations.map((item: Reservation) => (
+                    <div className="bg-white border rounded border-sky-900 shadow-lg px-5 mx-5 py-2 my-5 w-[80%]" key={item._id}>
                         <div className="text-xl text-black font-bold pb-2 py-2">{item.coworkingspace.name}</div>
                         {
                             user.role==='admin'? <div className="text-sm text-gray-700">User ID: {item.user}</div> : null
