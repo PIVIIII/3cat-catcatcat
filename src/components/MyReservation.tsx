@@ -31,7 +31,7 @@ export default function MyReservation({reservations, user} : {reservations: Rese
                                 
                                 {
                                     user.role==='admin'? 
-                                    <Link href='/myreservation/view'>
+                                    <Link href={`/myreservation/view/${item._id}`}>
                                         <button className="text-sm text-white bg-[#2DD397] py-2 rounded-lg w-[180px] hover:bg-[#0E9C69]">View</button>
                                     </Link>: null
                                 }
