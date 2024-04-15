@@ -50,12 +50,10 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
                     endTime: endTime.toISOString(),
                     totalcost: totalcost
                 }
-
                 addReservation(reservationItem, session.user.token)
-                .then(() => {
-                    setReserveStatus('Reserved successfully')
-                    router.push('/payment')
-                    router.refresh()
+                .then((reservation) => {
+                    setReserveStatus('Wating for payment')
+                    router.push(`/payment/${reservation.data._id}`);
                 })
                 .catch(err => {
                     setReserveStatus(err.message)

@@ -1,49 +1,47 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import dayjs from "dayjs"
 
-export default function PaymentReservation({reservations}:{reservations: Reservations}) { 
+export default function PaymentReservation({reservation}:{reservation: Reservation}) { 
     
     const router = useRouter()
 
-    const handleUpdateReservation = (reservationId: string) => {
-        router.push(`/update/${reservationId}`);
-    };
-  //เดะค่อยแก้เป็น username
-
+    const handleclick =()=>{
+        try {
+            router.push('/myreservation');
+            router.refresh()
+        } catch (error) {
+            
+        }
+    }
     return (
-         <div>
-             {reservations.data && reservations.data.map((item: Reservation) => (
-                <div className="text-xl text-black font-bold place-content-center">
-                    Total cost : {item.cost}
-                </div>
-                ))}
-
-        <div className="w-4/5 sm:w-3/4 md:w-7/12 xl:w-1/2 space-y-5 bg-white border border-sky-300 p-10 flex flex-col shadow-lg shadow-indigo-200 rounded-lg">
-            {
-                reservations.data.length !== 0?
-                reservations.data.map((item: Reservation) => (
-                    <div className="bg-white border rounded border-sky-900 shadow-lg px-5 mx-5 py-2 my-5 w-[80%]">
-                        <div className="text-xl text-black font-bold pb-2">{item.coworkingspace.name}</div>
-                        
-                        <div className="text-sm text-gray-700">User Name: {item.user}</div> : null
-                        
-                        <div className="text-sm text-gray-700">Start time: {dayjs(item.reserveStartTime).subtract(7, 'hour').format('DD/MM/YYYY HH:mm')}</div>
-                        <div className="text-sm text-gray-700">End time: {dayjs(item.reserveEndTime).subtract(7, 'hour').format('DD/MM/YYYY HH:mm')}</div>
-                    </div>
-                ))
-                : <div className="flex justify-center items-center text-center text-lg md:text-xl lg:text-2xl font-bold mt-[80px] mx-[50px]">You don't have any reservations</div>
-            }
-        </div>
-        <div className="text-sm text-gray-700">ส่งสลิป</div>
         <div>
-            <form action="/upload" method="post" encType="multipart/form-data">
-                <input type="file" name="image" />
-                <button type="submit">Upload</button>
-            </form>
-        </div>
+             <div className="text-3xl text-black font-bold text-center p-2 m-2">Total cost : {reservation.totalcost}</div>
+             <div className="text-xl text-black font-bold text-center">ธนาคาร xxxxx</div>
+             <div className="text-xl text-black font-bold text-center">เลขบัญชี xxxxx</div>
+            <div className="flex flex-col items-center">
+                <div className="block bg-white border border-2 border-[#85C2EE] shadow-xl mx-5 my-10 w-[50vw] h-[50vh] rounded-lg">
+                    <div className="block bg-white border border-2 border-[#000000] shadow-xl w-80% h-50% rounded-lg mx-8 mt-8 text-left">
+                        <div className="text-lg font-bold ml-5 mt-3">{reservation.coworkingspace.name}</div>
+                        <div className="text-base ml-5">User ID: {reservation.user}</div>
+                        <div className="text-base ml-5">Start time: {dayjs(reservation.reserveStartTime).subtract(7, 'hour').format('DD/MM/YYYY HH:mm')}</div>
+                        <div className="text-base ml-5 mb-3">End time: {dayjs(reservation.reserveEndTime).subtract(7, 'hour').format('DD/MM/YYYY HH:mm')}</div>
+                    </div>
+                    <div className="text-xl font-bold text-left ml-8 mt-5">ส่งสลิป: </div>
+                <div className="ml-10 m-5">
+                <form action="/upload" method="post" encType="multipart/form-data">
+                    <input type="file" name="image" />
+                    <br></br><button type="submit" className="text-lg text-white bg-cyan-450 rounded-lg w-[120px] hover:bg-cyan-700 mt-2">Upload</button>
+                </form>
+                </div>
+            </div>
+                
+            </div>
+            <div className="flex flex-row space-x-4 justify-center">
+                <button className="text-lg text-white bg-cyan-450 py-2 rounded-lg w-[180px] hover:bg-cyan-700" onClick={handleclick}>Confirm Payment</button>
+            </div>
+            
         </div>
     )
 }
