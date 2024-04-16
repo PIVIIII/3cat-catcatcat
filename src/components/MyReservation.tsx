@@ -77,18 +77,6 @@ export default function MyReservation({ reservations, user }: { reservations: Re
                                         <button className="text-sm text-white bg-[#2DD397] py-2 rounded-lg w-[180px] hover:bg-[#0E9C69]">View</button>
                                     </Link>
                                 </div>
-                                {
-                                    item.status === 'waiting' ? <div className="text-sm text-white bg-gray-500 py-2 rounded-lg w-[180px]">Waiting for payment</div> : null
-                                }
-                                {
-                                    item.status === 'pending' ? <div className="text-sm text-white bg-[#E39D48] py-2 rounded-lg w-[180px]">Pending Approval</div> : null
-                                }
-                                {
-                                    item.status === 'success' ? <div className="text-sm text-white bg-teal-500 py-2 rounded-lg w-[180px]">Success</div> : null
-                                }
-                                {
-                                    item.status === 'failed' ? <div className="text-sm text-white bg-red-400 py-2 rounded-lg w-[180px]">Failed</div> : null
-                                }
                             </div>
                         </div>
                     ))
