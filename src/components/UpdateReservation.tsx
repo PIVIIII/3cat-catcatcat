@@ -49,6 +49,8 @@ export default function UpdateReservation() {
 
         if (startTime && endTime) {
             if(isEqual){
+                setReserveStatus('Updating the reservation...')
+
                 const reservationItem: any = {
                     id: id,
                     startTime: reserveStartTime.toISOString(),
@@ -70,7 +72,7 @@ export default function UpdateReservation() {
             setReserveStatus('Please enter update reserve informations')
         }
     } 
- 
+
 
     return (
         <div className="w-4/5 sm:w-3/4 md:w-7/12 xl:w-1/2 space-y-5 bg-white border border-sky-300 p-10 flex flex-col shadow-lg shadow-indigo-200 rounded-lg">

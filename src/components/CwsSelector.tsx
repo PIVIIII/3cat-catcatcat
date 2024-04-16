@@ -42,23 +42,22 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
         if (!session) return
 
         if (cwSpace && startTime && endTime) {
-            if (totalcost) {
-                const reservationItem: ReservationItem = {
-                    userName: session.user.name,
-                    cwsID: cwSpace,
-                    startTime: startTime.toISOString(),
-                    endTime: endTime.toISOString(),
-                    totalcost: totalcost
-                }
-                addReservation(reservationItem, session.user.token)
-                .then((reservation) => {
-                    setReserveStatus('Wating for payment')
-                    router.push(`/payment/${reservation.data._id}`);
-                })
-                .catch(err => {
-                    setReserveStatus(err.message)
-                })
+            setReserveStatus('Reserving...')
+            const reservationItem: ReservationItem = {
+                userName: session.user.name,
+                cwsID: cwSpace,
+                startTime: startTime.toISOString(),
+                endTime: endTime.toISOString(),
+                totalcost: totalcost? totalcost : '0'
             }
+            addReservation(reservationItem, session.user.token)
+            .then((reservation) => {
+                setReserveStatus('Waiting for payment')
+                router.push(`/payment/${reservation.data._id}`);
+            })
+            .catch(err => {
+                setReserveStatus(err.message)
+            })
         } else {
             setReserveStatus('Please enter reserve informations')
         }

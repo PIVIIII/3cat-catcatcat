@@ -4,10 +4,12 @@ import deleteReservation from "@/libs/deleteReservation"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import dayjs from "dayjs"
+import { useState, useRef } from "react"
 
 export default function MyReservation({reservations, user} : {reservations: Reservations, user: UserSession}) {
 
     const router = useRouter()
+    router.refresh()
 
     const sortedReservations = [...reservations.data].sort((a: Reservation, b: Reservation) => {
         if (a.status === 'pending') return -1;
@@ -15,6 +17,28 @@ export default function MyReservation({reservations, user} : {reservations: Rese
         if (a.status === 'success' && b.status !== 'pending' && b.status !== 'failed') return -1;
         return 1;
     });
+
+    const removeConfirm = useRef<HTMLDivElement>(null)
+    const waitingRemove = useRef<HTMLDivElement>(null)
+
+    const [item, setItem] = useState<Reservation|null>(null)
+
+    const removeReservationButton = (item: Reservation) => {
+        if (removeConfirm.current) removeConfirm.current.classList.toggle('hidden')
+        setItem(item)
+    }
+    
+    const removeReservation = () => {
+        if (item) {
+            if (removeConfirm.current) removeConfirm.current.classList.toggle('hidden')
+            if (waitingRemove.current) waitingRemove.current.classList.toggle('hidden')
+            deleteReservation(item._id, user.token)
+            .then(() => {
+                router.refresh()
+                if (waitingRemove.current) waitingRemove.current.classList.toggle('hidden')
+            })
+        }
+    }
 
     return (
         <div>
@@ -34,7 +58,7 @@ export default function MyReservation({reservations, user} : {reservations: Rese
                                 <Link href={`/update?id=${item._id}&startTime=${item.reserveStartTime}&endTime=${item.reserveEndTime}`}
                                     className="text-sm text-white bg-cyan-450 py-2 rounded-lg w-[180px] hover:bg-cyan-700">Update Reservation</Link>
                                 <button className="text-sm text-white bg-rose-red py-2 rounded-lg w-[180px] hover:bg-rose-700"
-                                    onClick={() => deleteReservation(item._id, user.token).then(() => {router.refresh()})}>Remove Reservation</button>
+                                    onClick={() => removeReservationButton(item)}>Remove Reservation</button>
                                 
                                 {
                                     user.role==='admin'? 
@@ -58,6 +82,25 @@ export default function MyReservation({reservations, user} : {reservations: Rese
                 ))
                 : <div className="flex justify-center items-center text-center text-lg md:text-xl lg:text-2xl font-bold mt-[80px] mx-[50px]">You don't have any reservations</div>
             }
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden" ref={removeConfirm}>
+                <div className="bg-white p-8 rounded-lg shadow-md mx-4">
+                    <div className="text-2xl font-bold mb-4">Are you sure to remove this reservation?</div>
+                    <div className='space-x-4 flex justify-end'>
+                        <button className="mt-4 px-4 py-2 text-black rounded-lg border-2 border-black" onClick={(e) => {if (removeConfirm.current) removeConfirm.current.classList.toggle('hidden')}}>
+                        Close
+                        </button>
+                        <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg" onClick={removeReservation}>
+                        Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden" ref={waitingRemove}>
+                <div className="bg-white p-8 rounded-lg shadow-md mx-4 text-center">
+                    <div className="text-2xl font-bold mb-4">Removing the reservation...</div>
+                    <div>Please wait a moment</div>
+                </div>
+            </div>
         </div>
     )
 }
