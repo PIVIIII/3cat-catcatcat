@@ -13,6 +13,14 @@ interface Reservation {
     status: string
 }
 
+interface ReservationItem {
+    userName : string
+    cwsID : string
+    startTime : string
+    endTime : string,
+    totalcost : string
+}
+
 interface Transaction {
     _id: string,
     reservation: string,
@@ -21,12 +29,11 @@ interface Transaction {
     slip: string
 }
 
-interface ReservationItem {
-    userName : string
-    cwsID : string
-    startTime : string
-    endTime : string,
-    totalcost : string
+interface TransactionItem {
+    reservation: string,
+    user: string,
+    totalcost: string,
+    slip: string
 }
 
 interface Coworkingspaces {
