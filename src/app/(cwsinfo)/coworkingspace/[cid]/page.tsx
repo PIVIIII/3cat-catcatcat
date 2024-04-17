@@ -35,7 +35,7 @@ export default async function CwsDetailPage({params} : {params: {cid: string}}) 
                         </tr>
                         <tr className='h-8'>
                             <td className='pr-5'>Reservation Rate:</td>
-                            <td>{cwsDetail.data.rate}</td>
+                            <td>{cwsDetail.data.rate} baht/hour</td>
                         </tr>
                     </table>
                 </div>
