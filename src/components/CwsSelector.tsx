@@ -53,7 +53,7 @@ export default function CwsSelector({cws} : {cws: Coworkingspaces}) {
             addReservation(reservationItem, session.user.token)
             .then((reservation) => {
                 setReserveStatus('Waiting for payment')
-                router.push(`/payment/${reservation.data._id}`);
+                router.push(`/paymentdetail/${reservation.data._id}`);
             })
             .catch(err => {
                 setReserveStatus(err.message)
