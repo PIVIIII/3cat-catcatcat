@@ -16,7 +16,7 @@ export default function PaymentDetail({reservation}:{reservation: Reservation}) 
                     <div className="text-xl text-black font-bold mb-4">Choose Bank</div>
                     <div className="flex flex-row">
                         <div className="pt-2 pl-3"><Image alt='kbank' src="/img/kbank.png" width={60} height={60}/></div>
-                        <div className="ml-6 my-5">
+                        <div className="ml-6 mb-5">
                             <div className="text-lg text-black font-bold">Kbank</div>
                             <div>account : catcatcat </div>
                             <div>account number : 081-x-xxxxx-0</div>
