@@ -33,7 +33,8 @@ interface TransactionItem {
     reservation: string,
     user: string,
     totalcost: string,
-    slip: string
+    slip: string,
+    bank : string,
 }
 
 interface Coworkingspaces {

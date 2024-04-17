@@ -7,11 +7,14 @@ import { useSession } from "next-auth/react"
 import addTransaction from "@/libs/addTransaction"
 import updateReservationStatus from "@/libs/updateReservationStatus"
 
-export default function PaymentReservation({reservation}:{reservation: Reservation}) { 
-    
+export default function PaymentReservation({ reservation }: { reservation: Reservation }) {
+
     const router = useRouter()
 
-    const {data: session} = useSession()
+    const { data: session } = useSession()
+
+    const [bank, setBank] = useState<string>("")
+
 
     const confirmPayment = () => {
         if (session && image) {
@@ -21,25 +24,26 @@ export default function PaymentReservation({reservation}:{reservation: Reservati
                 reservation: reservation._id,
                 user: session.user.token,
                 totalcost: reservation.totalcost,
-                slip: image
+                slip: image,
+                bank: bank
             }
 
             addTransaction(transaction, session.user.token)
-            .then(() => {
-                updateReservationStatus({id: reservation._id, status: 'pending'}, session.user.token)
                 .then(() => {
-                    router.push(`/myreservation`)
-                    router.refresh()
+                    updateReservationStatus({ id: reservation._id, status: 'pending' }, session.user.token)
+                        .then(() => {
+                            router.push(`/myreservation`)
+                            router.refresh()
+                        })
                 })
-            })
-            .catch(err => {
-                console.log(err)
-                if (waitingPopup.current) waitingPopup.current.classList.toggle('hidden')
-            })
+                .catch(err => {
+                    console.log(err)
+                    if (waitingPopup.current) waitingPopup.current.classList.toggle('hidden')
+                })
         }
     }
 
-    const [image, setImage] = useState<any|null>(null)
+    const [image, setImage] = useState<any | null>(null)
 
     const waitingPopup = useRef<HTMLDivElement>(null)
 
@@ -67,16 +71,27 @@ export default function PaymentReservation({reservation}:{reservation: Reservati
                         <div className="text-base ml-5 ">End time: {dayjs(reservation.reserveEndTime).subtract(7, 'hour').format('DD/MM/YYYY HH:mm')}</div>
                         <div className="text-base ml-5 mb-3">cost: {reservation.totalcost}</div>
                     </div>
-                    <div className="text-xl font-bold text-left ml-8 mt-5">Banking : </div>
-
+                    <div className="flex  mt-5 ">
+                    <p className="text-xl font-bold text-left ml-8 mt-5">Banking : </p>
+                    <select
+                        className="text-base ml-8 border border-gray-300 rounded-lg p-2 mt-2"
+                        onChange={(e) => setBank(e.target.value)}
+                    >
+                        <option value="">Choose Bank</option>
+                        <option value="Kbank">Kbank</option>
+                        <option value="SCB">SCB</option>
+                        <option value="PromptPay">PromptPay</option>
+                    </select>
+                    </div>
+                    
                     <div className="text-xl font-bold text-left ml-8 mt-5">Transaction slip: </div>
                     <div className="mx-8 mt-2 space-y-4">
-                        <input accept="image/*" type="file" onChange={convertToBase64}/>
+                        <input accept="image/*" type="file" onChange={convertToBase64} />
                         {
-                            image?
-                            <div className="flex justify-center">
-                                <img src={image} className="h-[20vw]"/>
-                            </div> : null
+                            image ?
+                                <div className="flex justify-center">
+                                    <img src={image} className="h-[20vw]" />
+                                </div> : null
                         }
                     </div>
                 </div>
