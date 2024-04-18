@@ -26,6 +26,7 @@ interface Transaction {
     reservation: string,
     user: string,
     totalcost: string,
+    bank: string,
     slip: string
 }
 
@@ -33,8 +34,8 @@ interface TransactionItem {
     reservation: string,
     user: string,
     totalcost: string,
-    slip: string,
     bank : string,
+    slip: string
 }
 
 interface Coworkingspaces {

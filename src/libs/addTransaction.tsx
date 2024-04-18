@@ -9,6 +9,7 @@ export default async function addTransaction(transaction: TransactionItem, token
             reservation: transaction.reservation,
             user: transaction.user,
             totalcost: transaction.totalcost,
+            bank: transaction.bank,
             slip: transaction.slip
         })
     })
