@@ -3,7 +3,7 @@ import getPremiumTransactions from "@/libs/getPremiumTransactions";
 import { getServerSession } from "next-auth"
 import authOptions from '@/libs/auth/authOptions';
 
-export default async function MyReservationPage() {
+export default async function PremiumRequestsPage() {
 
     const session = await getServerSession(authOptions)
 
