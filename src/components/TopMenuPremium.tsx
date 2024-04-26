@@ -11,21 +11,6 @@ export default function TopMenuPreium() {
                     <button className="px-6 py-4 hover:bg-sky-800 text-white font-bold rounded-lg shadow-2xl bg-sky-950" onClick={() => { }}> View all plan </button>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
         </div>
-
-
-
-
     );
 }

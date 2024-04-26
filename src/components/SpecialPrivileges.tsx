@@ -1,5 +1,11 @@
 'use client'
+
+import { useRouter } from "next/navigation"
+
 export default function SpecialPrivileges() {
+
+    const router = useRouter()
+
     return (
         <div>
             <div className="pt-10 pb-10"></div>
@@ -26,31 +32,34 @@ export default function SpecialPrivileges() {
                                 <hr className="border border-yellow-500 w-[90%]"></hr>
                             </div>
                             <div className="text-xl text-black font-sans font-bold py-5">฿129/month</div>
-                            <button className="mt-4 px-4 py-2 hover:bg-yellow-600 text-xl text-white font-bold rounded-lg shadow-2xl bg-yellow-500" onClick={() => { }}>
+                            <button className="mt-4 px-4 py-2 hover:bg-yellow-600 text-xl text-white font-bold rounded-lg shadow-2xl bg-yellow-500"
+                            onClick={() => { router.push('/premium/payment/student-month') }}>
                                 Register
                             </button>
                         </div>
                     </div>
                     <div className="w-1/3 px-10">
-                        <div className="shadow-[-10px_10px_0px_0px_rgba(233,179,111)] drop-shadow-xl text-center bg-white border-2 rounded-lg border-yellow-500 shadow-lg px-5 py-5 my-5">
+                    <div className="shadow-[-10px_10px_0px_0px_rgba(233,179,111)] drop-shadow-xl text-center bg-white border-2 rounded-lg border-yellow-500 px-5 py-5 my-5">
                             <div className="text-2xl text-black font-sans font-bold pb-2">Individual</div>
                             <div className="flex justify-center">
                                 <hr className="border border-yellow-500 w-[90%]"></hr>
                             </div>
                             <div className="text-xl text-black font-sans font-bold py-5">฿199/month</div>
-                            <button className="mt-4 px-4 py-2 hover:bg-yellow-600 text-xl text-white font-bold rounded-lg shadow-2xl bg-yellow-500" onClick={() => { }}>
+                            <button className="mt-4 px-4 py-2 hover:bg-yellow-600 text-xl text-white font-bold rounded-lg shadow-2xl bg-yellow-500"
+                            onClick={() => { router.push('/premium/payment/individual-month') }}>
                                 Register
                             </button>
                         </div>
                     </div>
                     <div className="w-1/3 px-10">
-                        <div className="shadow-[-10px_10px_0px_0px_rgba(233,179,111)] drop-shadow-xl text-center bg-white border-2 rounded-lg border-yellow-500 shadow-lg px-5 py-5 my-5">
+                    <div className="shadow-[-10px_10px_0px_0px_rgba(233,179,111)] drop-shadow-xl text-center bg-white border-2 rounded-lg border-yellow-500 px-5 py-5 my-5">
                             <div className="text-2xl text-black font-sans font-bold pb-2">Individual</div>
                             <div className="flex justify-center">
                                 <hr className="border border-yellow-500 w-[90%]"></hr>
                             </div>
                             <div className="text-xl text-black font-sans font-bold py-5">฿1990/year</div>
-                            <button className="mt-4 px-4 py-2 hover:bg-yellow-600 text-xl text-white font-bold rounded-lg shadow-2xl bg-yellow-500" onClick={() => { }}>
+                            <button className="mt-4 px-4 py-2 hover:bg-yellow-600 text-xl text-white font-bold rounded-lg shadow-2xl bg-yellow-500"
+                            onClick={() => { router.push('/premium/payment/individual-year') }}>
                                 Register
                             </button>
                         </div>
