@@ -1,5 +1,5 @@
 export default async function addPremiumTransaction(premiumtransaction: PremiumTransaction, token: string) {
-    const response = await fetch(`http://localhost:5000/api/premiumtransactions/`, {
+    const response = await fetch(`https://coworking-backend-beta.vercel.app/api/premiumtransactions/`, {
         method: 'POST',
         headers: {
             "authorization": `Bearer ${token}`,

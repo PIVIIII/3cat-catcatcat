@@ -1,5 +1,5 @@
 export default async function deletePremiumTransaction(id: string, token: string) {
-    const response = await fetch(`http://localhost:5000/api/premiumtransactions/${id}`, {
+    const response = await fetch(`https://coworking-backend-beta.vercel.app/api/premiumtransactions/${id}`, {
         method: 'DELETE',
         headers: {
             "authorization": `Bearer ${token}`
