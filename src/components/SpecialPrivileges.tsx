@@ -22,6 +22,7 @@ export default function SpecialPrivileges() {
                     </div>
                 </div>
             </div>
+            <div id="membership" className="text-xl text-white font-sans pb-2">|</div>
 
             <div className="text-center text-4xl text-yellow-600 font-bold pt-10 pb-5">Pick a membership that fits you</div>
 

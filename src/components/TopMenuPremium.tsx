@@ -14,8 +14,11 @@ export default function TopMenuPreium() {
 
     useEffect(() => {
         if (shouldScroll) {
-            window.scrollTo(0, document.body.scrollHeight);
-            setShouldScroll(false);
+            const element = document.getElementById('membership');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                setShouldScroll(false);
+            }
         }
     }, [shouldScroll]);
 
