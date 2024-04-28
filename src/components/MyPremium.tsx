@@ -108,7 +108,7 @@ export default function MyPremium({ premiumTransactions, user }: { premiumTransa
                                         </div>: null
                                     }
                                 </div>
-                                <div className="text-xl text-black font-bold pb-2 py-2">User ID: {item.user}</div>
+                                <div className="text-xl text-black font-bold pb-2 py-2">User ID: {item.user._id}</div>
                                 <div className="text-sm text-gray-700">Membership Type: {item.membership}</div>
                                 <div className="text-sm text-gray-700">Cost: {item.cost} Baht</div>
                                 <div className="my-2 flex flex-col justify-between text-center sm:flex-row">
