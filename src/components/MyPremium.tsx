@@ -80,24 +80,30 @@ export default function MyPremium({ premiumTransactions, user }: { premiumTransa
                                     {
                                         item.status === 'pending' ? 
                                         <div className="flex flex-row">
-                                            <div className="w-3 h-3 rounded-full bg-[#E39D48] mr-1 mt-1"></div>
-                                            <div className="text-md text-gray-500 font-bold">Pending Approval</div> 
+                                            <div className="flex flex-row items-center">
+                                                <div className="w-3 h-3 rounded-full bg-[#E39D48] mr-1"></div>
+                                                <div className="text-md text-gray-500 font-bold">Pending Approval</div>
+                                            </div>
                                             <Image className="ml-2 cursor-pointer" alt='img' src="/img/deleteicon.png" width={30} height={10} onClick={() => removeButton(item)}/>
                                         </div>: null
                                     }
                                     {
                                         item.status === 'success' ? 
                                         <div className="flex flex-row">
-                                            <div className="w-3 h-3 rounded-full bg-teal-500 mr-1 mt-1"></div>
-                                            <div className="text-md text-gray-500 font-bold">Success</div>
+                                            <div className="flex flex-row items-center">
+                                                <div className="w-3 h-3 rounded-full bg-teal-500 mr-1"></div>
+                                                <div className="text-md text-gray-500 font-bold">Success</div>
+                                            </div>
                                             <Image className="ml-2 cursor-pointer" alt='img' src="/img/deleteicon.png" width={30} height={10} onClick={() => removeButton(item)}/>
                                         </div>: null
                                     }
                                     {
                                         item.status === 'failed' ? 
                                         <div className="flex flex-row">
-                                            <div className="w-3 h-3 rounded-full bg-red-400 mr-1 mt-1"></div>
-                                            <div className="text-md text-gray-500 font-bold">Failed</div>
+                                            <div className="flex flex-row items-center">
+                                                <div className="w-3 h-3 rounded-full bg-red-400 mr-1"></div>
+                                                <div className="text-md text-gray-500 font-bold">Failed</div>
+                                            </div>
                                             <Image className="ml-2 cursor-pointer" alt='img' src="/img/deleteicon.png" width={30} height={10} onClick={() => removeButton(item)}/>
                                         </div>: null
                                     }

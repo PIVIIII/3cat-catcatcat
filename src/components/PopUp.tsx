@@ -15,7 +15,7 @@ export default function PopUp({session} : {session:Session|null}){
     const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60)) % 24;
 
-    if (daysRemaining > 2) return null;
+    if (daysRemaining > 2 || daysRemaining < 0) return null;
 
     const [ openPopUp, setOpenPopUp ] = useState(true);
 
