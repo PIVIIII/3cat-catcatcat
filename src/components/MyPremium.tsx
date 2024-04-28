@@ -108,7 +108,7 @@ export default function MyPremium({ premiumTransactions, user }: { premiumTransa
                                         </div>: null
                                     }
                                 </div>
-                                <div className="text-xl text-black font-bold pb-2 py-2">User ID: {item.user._id}</div>
+                                <div className="text-xl text-black font-bold pb-2 py-2">User ID: {item.user}</div>
                                 <div className="text-sm text-gray-700">Membership Type: {item.membership}</div>
                                 <div className="text-sm text-gray-700">Cost: {item.cost} Baht</div>
                                 <div className="my-2 flex flex-col justify-between text-center sm:flex-row">
@@ -137,7 +137,7 @@ export default function MyPremium({ premiumTransactions, user }: { premiumTransa
             </div>
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden" ref={waitingRemove}>
                 <div className="bg-white p-8 rounded-lg shadow-md mx-4 text-center">
-                    <div className="text-2xl font-bold mb-4">Removing the reservation...</div>
+                    <div className="text-2xl font-bold mb-4">Removing the request...</div>
                     <div>Please wait a moment</div>
                 </div>
             </div>
