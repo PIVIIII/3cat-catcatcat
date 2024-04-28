@@ -66,7 +66,8 @@ export default function PaymentReservation({plan} : {plan : string}) {
                     //         router.push(`/myreservation`)
                     //         router.refresh()
                     //     })
-                    router.push(`/`)
+                    router.push(`/mypremium`)
+                    router.refresh()
                 })
                 .catch(err => {
                     console.log(err)
@@ -92,7 +93,8 @@ export default function PaymentReservation({plan} : {plan : string}) {
                     //         router.push(`/myreservation`)
                     //         router.refresh()
                     //     })
-                    router.push(`/`)
+                    router.push(`/mypremium`)
+                    router.refresh()
                 })
                 .catch(err => {
                     console.log(err)

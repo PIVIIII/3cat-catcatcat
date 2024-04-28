@@ -61,7 +61,7 @@ interface User {
     email: string,
     tel: string,
     password: string,
-    role: string,
+    role: string
     expire: string
 }
 
