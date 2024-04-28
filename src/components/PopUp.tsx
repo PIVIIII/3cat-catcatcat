@@ -4,12 +4,12 @@ import { Session } from "next-auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation"
 
-export default function PopUp({session} : {session:Session|null}){
+export default function PopUp({user} : {user:any}){
     
-    if (!session || session.user.role != "premium" || !session.user.expire) return null;
+    if (!user || user.data.role != "premium" || !user.data.expire) return null;
 
     const currentDate = new Date();
-    const expireDate = new Date(session.user.expire);
+    const expireDate = new Date(user.data.expire);
 
     const timeDifference = expireDate.getTime() - currentDate.getTime();
     const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
