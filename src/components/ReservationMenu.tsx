@@ -96,10 +96,14 @@ export default function ReservationMenu() {
                     <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-900">Role</label>
                     <input type="text" id="role" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={session.user.role} readOnly/>
                 </div>
-                <div>
-                    <label htmlFor="expire" className="block mb-2 text-sm font-medium text-gray-900">Expire Date</label>
-                    <input type="text" id="expire" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value= {dayjs(session.user.expire).subtract(7, 'hour').format('DD/MM/YYYY')} readOnly/>
-                </div>
+                {
+                    session.user.role === 'premium'?
+                    <div>
+                        <label htmlFor="expire" className="block mb-2 text-sm font-medium text-gray-900">Premium Expire Date</label>
+                        <input type="text" id="expire" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value= {dayjs(session.user.expire).format('DD/MM/YYYY')} readOnly/>
+                    </div>
+                    : null
+                }
                 <button className="text-green-700 hover:text-white bg-white hover:bg-green-700 border border-1 border-green-700 font-medium rounded-full text-sm py-2.5 text-center" onClick={updateUser}>Save Change</button>
                 <button className="text-red-800 hover:text-white bg-white hover:bg-red-800 border border-1 border-red-800 font-medium rounded-full text-sm py-2.5 text-center" onClick={(e) => {if (popupScreen.current) popupScreen.current.classList.toggle('hidden')}}>Delete Account</button>
 

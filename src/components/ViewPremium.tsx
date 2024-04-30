@@ -40,12 +40,13 @@ export default function ViewPremium({premiumTransaction}: {premiumTransaction: g
             let date
             if (premiumTransaction.user.expire) {
                 date = new Date(premiumTransaction.user.expire)
+                date.setDate(date.getDate() + days)
+                date.setHours(0, 0, 0, 0)
             } else {
                 date = new Date()
+                date.setDate(date.getDate() + days)
+                date.setHours(24, 0, 0, 0)
             }
-
-            date.setDate(date.getDate() + days)
-            date.setHours(24, 0, 0, 0)
 
             updateUser({id: premiumTransaction.user._id, role: 'premium', expire: date.toISOString()}, session.user.token)
             .then(() => {
