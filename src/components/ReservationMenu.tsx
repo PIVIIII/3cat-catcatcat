@@ -91,13 +91,10 @@ export default function ReservationMenu() {
                     <label htmlFor="confirm_password" className="block mb-2 text-sm font-medium text-gray-900">Confirm password</label>
                     <input type="password" id="confirm_password" placeholder='Comfirm the password' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" onChange={(e) => setConfirmPassword(e.target.value)} />
                 </div> 
-                {
-                    (session.user.role === "admin") ?
-                    <div>
-                        <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                        <input type="text" id="role" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={session.user.role} readOnly/>
-                    </div> : null
-                }
+                <div>
+                    <label htmlFor="role" className="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                    <input type="text" id="role" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value={session.user.role} readOnly/>
+                </div>
                 <button className="text-green-700 hover:text-white bg-white hover:bg-green-700 border border-1 border-green-700 font-medium rounded-full text-sm py-2.5 text-center" onClick={updateUser}>Save Change</button>
                 <button className="text-red-800 hover:text-white bg-white hover:bg-red-800 border border-1 border-red-800 font-medium rounded-full text-sm py-2.5 text-center" onClick={(e) => {if (popupScreen.current) popupScreen.current.classList.toggle('hidden')}}>Delete Account</button>
 
